@@ -24,7 +24,7 @@ export default function AboutPage() {
   const container = useRef(null);
 
   return (
-    <main className="bg-[#f0f0f0] min-h-screen pt-32 pb-20">
+    <main className="bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] min-h-screen pt-32 pb-20">
       {/* 1. HERO HEADER */}
       <section className="px-8 md:px-20 mb-20">
         <h1 className="text-[10vw] leading-[0.8] font-bold uppercase tracking-tighter mb-10 text-neutral-900">
