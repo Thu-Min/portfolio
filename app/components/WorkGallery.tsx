@@ -5,27 +5,32 @@ import Image from "next/image";
 
 const projects = [
   {
-    name: "Kalasa Art",
-    category: "Restful API",
-    src: "/kalasa.jpg",
-    speed: 0,
+    name: "SaaS Ops Console",
+    category: "Internal Platform",
+    src: "/projects/saas_ops_console_vertical.png",
+    speed: -100,
+    details: {
+      summary:
+        "Operations console that centralizes approvals, workflows, and reporting for SaaS teams.",
+      highlights: [
+        "RBAC-driven access and approval flows",
+        "Workflow state machine with audit-friendly activity trails",
+        "Configurable modules for onboarding, billing, and ops",
+        "Real-time dashboards with operational KPIs",
+      ],
+      stack: ["Next.js", "TypeScript", "Postgres", "Nest.js", "RBAC"],
+      links: [
+        {
+          label: "GitHub",
+          href: "https://github.com/Thu-Min/saas-ops-console",
+        },
+      ],
+    },
   },
   {
-    name: "Art Cannon",
-    category: "Backend / API",
-    src: "/artcannon.jpg",
-    speed: -150,
-  },
-  {
-    name: "Hades",
-    category: "Portfolio Site",
-    src: "/hades.jpg",
-    speed: -75,
-  },
-  {
-    name: "Mansory",
+    name: "Coming Soon",
     category: "Static Web",
-    src: "/mansory.jpg",
+    src: "/",
     speed: 50,
   },
 ];
@@ -76,6 +81,12 @@ function ProjectCard({ project, container, index }: any) {
 
   // Parallax logic
   const y = useTransform(scrollYProgress, [0, 1], [0, project.speed]);
+  const hasDetails =
+    project.details &&
+    (project.details.summary ||
+      project.details.highlights?.length ||
+      project.details.stack?.length ||
+      project.details.links?.length);
 
   return (
     <motion.div
@@ -86,12 +97,12 @@ function ProjectCard({ project, container, index }: any) {
     >
       <div className="w-full h-full relative overflow-hidden group rounded-sm bg-neutral-900">
         {/* Image would go here */}
-        {/* <Image fill src={project.src} alt={project.name} className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" /> */}
-
-        {/* Placeholder for now */}
-        <div className="w-full h-full bg-neutral-800 group-hover:bg-neutral-700 transition-colors duration-500 flex items-center justify-center text-neutral-600">
-          Image: {project.src}
-        </div>
+        <Image
+          fill
+          src={project.src}
+          alt={project.name}
+          className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+        />
 
         <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -104,11 +115,74 @@ function ProjectCard({ project, container, index }: any) {
           </h3>
         </div>
 
-        <div className="absolute inset-0 z-20 bg-black/70 flex items-center justify-center">
-          <span className="text-sm md:text-base uppercase tracking-[0.3em] text-white">
-            Coming Soon
-          </span>
-        </div>
+        {hasDetails ? (
+          <div className="absolute inset-0 z-20 bg-black/85 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+            <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 text-white">
+              {project.details?.summary ? (
+                <p className="text-sm md:text-base font-medium leading-relaxed mb-5">
+                  {project.details.summary}
+                </p>
+              ) : null}
+
+              {project.details?.highlights?.length ? (
+                <div className="mb-5">
+                  <p className="text-xs uppercase tracking-widest opacity-60 mb-2">
+                    Highlights
+                  </p>
+                  <ul className="text-sm leading-relaxed space-y-1">
+                    {project.details.highlights.map((item: string) => (
+                      <li key={item} className="opacity-90">
+                        - {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {project.details?.stack?.length ? (
+                <div className="mb-5">
+                  <p className="text-xs uppercase tracking-widest opacity-60 mb-2">
+                    Stack
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.details.stack.map((tech: string) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 border border-white/30 rounded-full text-xs uppercase tracking-widest bg-transparent"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {project.details?.links?.length ? (
+                <div className="flex flex-wrap gap-4">
+                  {project.details.links.map(
+                    (link: { label: string; href: string }) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs uppercase tracking-widest border-b border-white/50 hover:border-white transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ),
+                  )}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : (
+          <div className="absolute inset-0 z-20 bg-black/70 flex items-center justify-center">
+            <span className="text-sm md:text-base uppercase tracking-[0.3em] text-white">
+              Coming Soon
+            </span>
+          </div>
+        )}
       </div>
     </motion.div>
   );
