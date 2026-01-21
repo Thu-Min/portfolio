@@ -11,12 +11,13 @@ const projects = [
     speed: -100,
     details: {
       summary:
-        "Operations console that centralizes approvals, workflows, and reporting for SaaS teams.",
+        "A production-grade multi-tenant SaaS operations console focusing on correct authorization modeling and tenant isolation.",
       highlights: [
-        "RBAC-driven access and approval flows",
-        "Workflow state machine with audit-friendly activity trails",
-        "Configurable modules for onboarding, billing, and ops",
-        "Real-time dashboards with operational KPIs",
+        "A multi-tenant SaaS architecture with explicit tenant selection & strict isolation",
+        "Policy-based authorization using centralized guards instead of route-level role checks",
+        "Capability-driven API responses to eliminate duplicated authorization logic in the frontend",
+        "Separated authentication, tenant context, and authorization to ensure lifecycle correctness",
+        "Centralized, append-only audit logging for sensitive operations",
       ],
       stack: ["Next.js", "TypeScript", "Postgres", "Nest.js", "RBAC"],
       links: [
